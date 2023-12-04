@@ -1,0 +1,98 @@
+
+{
+  "round": 1,
+  "your_points": 0,
+  "opponent_points": 0,
+  "cards": [
+    {
+      "id": 1,
+      "name": "Card 1",
+      "power": 1,
+      "image": "card-1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Card 2",
+      "power": 2,
+      "image": "card-2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Card 3",
+      "power": 3,
+      "image": "card-3.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Card 4",
+      "power": 4,
+      "image": "card-4.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Card 5",
+      "power": 5,
+      "image": "card-5.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Card 6",
+      "power": 6,
+      "image": "card-6.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Card 7",
+      "power": 7,
+      "image": "card-7.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Card 8",
+      "power": 8,
+      "image": "card-8.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Card 9",
+      "power": 9,
+      "image": "card-9.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Card 10",
+      "power": 10,
+      "image": "card-10.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Card 11",
+      "power": 11,
+      "image": "card-11.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Card 12",
+      "power": 12,
+      "image": "card-12.jpg"
+    },
+    {
+      "id": 13,
+      "name": "Card 13",
+      "power": 13,
+      "image": "card-13.jpg"
+    },
+    {
+      "id": 14,
+      "name": "Card 14",
+      "power": 14,
+      "image": "card-14.jpg"
+    },
+    {
+      "id": 15,
+      "name": "Card 15",
+      "power": 15,
+      "image": "card-15.jpg"
+    }
+  ]
+}

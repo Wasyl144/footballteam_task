@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "playerName": "Jan Kowalski",
+    "opponentName": "Piotr Nowak",
+    "result": 0
+  },
+  {
+    "id": 2,
+    "playerName": "Jan Kowalski",
+    "opponentName": "Agnieszka Tomczak",
+    "result": 1
+  },
+  {
+    "id": 3,
+    "playerName": "Jan Kowalski",
+    "opponentName": "Tomasz Kaczyński",
+    "result": 1
+  },
+  {
+    "id": 4,
+    "playerName": "Jan Kowalski",
+    "opponentName": "Maciej Bułka",
+    "result": 0
+  }
+]

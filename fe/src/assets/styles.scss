@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a, button {
+  @apply transition ease-in-out duration-200;
+}
+
+[class*="-sec"] {
+  @apply bg-gray-100 min-h-screen;
+  .header + & {
+    @apply pt-[90px] pb-4;
+  }
+}
