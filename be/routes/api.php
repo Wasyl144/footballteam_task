@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Authorization\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Authorization\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //START THE DUEL
     Route::post('duels', function (Request $request) {
-       return response()->json();
+        return response()->json();
     });
 
     //CURRENT GAME DATA
@@ -45,28 +45,28 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('duels', function (Request $request) {
         return [
             [
-                "id" => 1,
-                "player_name" => "Jan Kowalski",
-                "opponent_name" => "Piotr Nowak",
-                "won" => 0
+                'id' => 1,
+                'player_name' => 'Jan Kowalski',
+                'opponent_name' => 'Piotr Nowak',
+                'won' => 0,
             ],
             [
-                "id" => 2,
-                "player_name" => "Jan Kowalski",
-                "opponent_name" => "Tomasz Kaczyński",
-                "won" => 1
+                'id' => 2,
+                'player_name' => 'Jan Kowalski',
+                'opponent_name' => 'Tomasz Kaczyński',
+                'won' => 1,
             ],
             [
-                "id" => 3,
-                "player_name" => "Jan Kowalski",
-                "opponent_name" => "Agnieszka Tomczak",
-                "won" => 1
+                'id' => 3,
+                'player_name' => 'Jan Kowalski',
+                'opponent_name' => 'Agnieszka Tomczak',
+                'won' => 1,
             ],
             [
-                "id" => 4,
-                "player_name" => "Jan Kowalski",
-                "opponent_name" => "Michał Bladowski",
-                "won" => 1
+                'id' => 4,
+                'player_name' => 'Jan Kowalski',
+                'opponent_name' => 'Michał Bladowski',
+                'won' => 1,
             ],
         ];
     });

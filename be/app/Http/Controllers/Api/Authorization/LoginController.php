@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
@@ -24,7 +23,7 @@ class LoginController extends Controller
 
             return response()->json([
                 'info' => 'OK',
-                'token' => $user->createToken('login-token')->plainTextToken
+                'token' => $user->createToken('login-token')->plainTextToken,
             ]);
         }
 
