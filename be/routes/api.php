@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //START THE DUEL
     Route::post('duels', function (Request $request) {
+        // Creates battle
         return response()->json();
     });
 
