@@ -13,12 +13,12 @@ class Deck extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id'
+        'player_id'
     ];
 
-    public function user(): HasOne
+    public function player(): HasOne
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(Player::class);
     }
 
     public function deckCards(): HasMany

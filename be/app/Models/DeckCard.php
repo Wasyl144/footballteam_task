@@ -20,5 +20,8 @@ class DeckCard extends Model
         return $this->belongsTo(Deck::class);
     }
 
-
+    public function card(): BelongsTo
+    {
+        return $this->belongsTo(Card::class);
+    }
 }
