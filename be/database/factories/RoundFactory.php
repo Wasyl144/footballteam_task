@@ -17,7 +17,7 @@ class RoundFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'game_id' => null,
         ];
     }
 }

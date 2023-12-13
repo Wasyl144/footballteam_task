@@ -17,7 +17,9 @@ class GameFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'valid_until' => null,
+            'finished_at' => null,
+            'status' => fake()->randomDigit(),
         ];
     }
 }

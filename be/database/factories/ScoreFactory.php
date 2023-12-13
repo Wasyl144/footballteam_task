@@ -17,7 +17,10 @@ class ScoreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'player_id' => null,
+            'status' => fake()->randomDigit(),
+            'game_id' => null,
+            'points' => fake()->randomNumber(),
         ];
     }
 }
