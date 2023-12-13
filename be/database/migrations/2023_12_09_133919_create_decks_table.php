@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('decks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Player::class)->index('idx_player_deck_id');
+            $table->foreignIdFor(Player::class)->references('id')->on('players');
             $table->timestamps();
         });
     }

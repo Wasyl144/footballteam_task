@@ -12,7 +12,7 @@ class DeckCard extends Model
 
     protected $fillable = [
         'deck_id',
-        'card_id'
+        'card_id',
     ];
 
     public function deck(): BelongsTo

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scores', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Player::class)->references('id')->on('players');
-            $table->foreignIdFor(\App\Models\Game::class)->references('id')->on('games');
             $table->smallInteger('status')->index();
+            $table->timestamp('valid_until')->nullable();
+            $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scores');
+        Schema::dropIfExists('games');
     }
 };

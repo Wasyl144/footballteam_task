@@ -10,7 +10,7 @@ class Player extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'points'];
+    protected $fillable = ['user_id', 'points', 'level'];
 
     public function user(): HasOne
     {

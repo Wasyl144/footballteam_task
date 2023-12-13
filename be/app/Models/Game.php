@@ -9,6 +9,17 @@ class Game extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'valid_until',
+        'finished_at',
+        'status',
+    ];
+
+    //TODO: cast to carbon and cast to status enum
+    protected $casts = [
+
+    ];
+
     public function players()
     {
         return $this->belongsToMany(Player::class);

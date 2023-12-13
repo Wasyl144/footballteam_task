@@ -12,7 +12,6 @@ class Move extends Model
 
     protected $fillable = ['player_id', 'round_id', 'deck_card_id', 'points'];
 
-
     public function round(): BelongsTo
     {
         return $this->belongsTo(Round::class);

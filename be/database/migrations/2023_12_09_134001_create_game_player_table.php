@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rounds', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('game_player', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\Game::class)->references('id')->on('games');
+            $table->foreignIdFor(\App\Models\Player::class)->references('id')->on('players');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rounds');
+        Schema::dropIfExists('game_player');
     }
 };

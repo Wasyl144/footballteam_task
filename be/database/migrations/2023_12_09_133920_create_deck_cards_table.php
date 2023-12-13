@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('deck_cards', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Card::class)->index('idx_deck_card_card_id');
-            $table->foreignIdFor(\App\Models\Deck::class)->index('idx_deck_card_deck_id');
+            $table->foreignIdFor(\App\Models\Card::class)->references('id')->on('cards');
+            $table->foreignIdFor(\App\Models\Deck::class)->references('id')->on('decks');
             $table->timestamps();
         });
     }
