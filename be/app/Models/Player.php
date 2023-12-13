@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Player extends Model
@@ -12,9 +13,14 @@ class Player extends Model
 
     protected $fillable = ['user_id', 'points', 'level'];
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function deck(): HasOne
+    {
+        return $this->hasOne(Deck::class);
     }
 
     public function addPoints(int $points): self
