@@ -17,7 +17,9 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => null,
+            'points' => fake()->randomNumber(),
+            'level' => fake()->randomNumber(),
         ];
     }
 }

@@ -17,7 +17,8 @@ class DeckCardFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'deck_id' => null,
+            'card_id' => null,
         ];
     }
 }

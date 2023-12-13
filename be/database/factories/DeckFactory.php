@@ -17,7 +17,7 @@ class DeckFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'player_id' => null,
         ];
     }
 }

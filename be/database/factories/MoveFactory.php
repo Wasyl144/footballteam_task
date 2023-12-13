@@ -17,7 +17,10 @@ class MoveFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'player_id' => null,
+            'round_id' => null,
+            'deck_card_id' => null,
+            'points' => fake()->randomNumber(2),
         ];
     }
 }
