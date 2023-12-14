@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Authorization\LoginController;
-use App\Http\Controllers\Api\User\Data\UserDataController;
+use App\Http\Controllers\Api\User\Data\GetUserDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -79,5 +79,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     //USER DATA
-    Route::get('user-data', [UserDataController::class, 'index']);
+    Route::get('user-data', GetUserDataController::class);
 });

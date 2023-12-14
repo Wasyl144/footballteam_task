@@ -23,10 +23,10 @@ class Player extends Model
         return $this->hasOne(Deck::class);
     }
 
-    public function addPoints(int $points): self
+    public function isAllowToGetNewCard(): bool
     {
-        $this->points += $points;
+        // TODO: to implement
 
-        return $this;
+        return false;
     }
 }
