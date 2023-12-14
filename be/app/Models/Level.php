@@ -9,12 +9,12 @@ class Level extends Model
 {
     use HasFactory;
 
-
     public $timestamps = false;
+
     protected $fillable = [
         'number',
         'points_from',
         'points_to',
-        'max_cards'
+        'max_cards',
     ];
 }

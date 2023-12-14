@@ -11,8 +11,7 @@ class GetUserDataController extends Controller
 {
     public function __construct(
         private readonly UserDataServiceInterface $service
-    )
-    {
+    ) {
     }
 
     public function __invoke(Request $request): UserDataResource

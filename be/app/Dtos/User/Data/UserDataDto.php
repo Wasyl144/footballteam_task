@@ -13,7 +13,6 @@ readonly class UserDataDto
         public string $levelPoints,
         public Collection $cards,
         public bool $isNewCardAllowed
-    )
-    {
+    ) {
     }
 }
