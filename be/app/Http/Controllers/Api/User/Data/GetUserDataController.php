@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UserDataController extends Controller
 {
-    public function index(Request $request): UserDataResource
+    public function __invoke(Request $request): UserDataResource
     {
         return UserDataResource::make($request->user('sanctum'));
     }
