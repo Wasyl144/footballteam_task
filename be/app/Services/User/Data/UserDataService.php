@@ -10,7 +10,7 @@ class UserDataService implements UserDataServiceInterface
 {
     public function getUserData(int $id): UserDataDto
     {
-        $user = User::query()->findOrFail($id);
+        $user = User::query()->with('player')->findOrFail($id);
         $level = Level::query()->whereLevelNumber($user->player->level)->first();
 
         return new UserDataDto(
@@ -19,7 +19,7 @@ class UserDataService implements UserDataServiceInterface
             level: $user->player->level,
             levelPoints: sprintf('%s/%s', $user->player->points, $level->points_to),
             cards: $user->player->deck->deckCards,
-            isNewCardAllowed: $level->max_cards > $user->player->deck->deck_cards_count
+            isNewCardAllowed: $level->max_cards > $user->player->deck->getTotalCardsInDeck
         );
     }
 }
