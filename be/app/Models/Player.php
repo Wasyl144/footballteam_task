@@ -23,10 +23,8 @@ class Player extends Model
         return $this->hasOne(Deck::class);
     }
 
-    public function isAllowToGetNewCard(): bool
+    public function games()
     {
-        // TODO: to implement
-
-        return false;
+        return $this->belongsToMany(Game::class);
     }
 }

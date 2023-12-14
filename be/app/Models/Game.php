@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Game\GameStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,9 @@ class Game extends Model
 
     //TODO: cast to carbon and cast to status enum
     protected $casts = [
-
+        'valid_until' => 'datetime',
+        'finished_at' => 'datetime',
+        'status' => GameStatusEnum::class,
     ];
 
     public function players()

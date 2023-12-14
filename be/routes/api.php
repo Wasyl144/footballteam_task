@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Authorization\LoginController;
 use App\Http\Controllers\Api\DeckCard\Draw\DeckCardDrawController;
+use App\Http\Controllers\Api\Game\StartGameController;
 use App\Http\Controllers\Api\User\Data\GetUserDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,10 +24,7 @@ Route::post('logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //START THE DUEL
-    Route::post('duels', function (Request $request) {
-        // Creates battle
-        return response()->json();
-    });
+    Route::post('duels', StartGameController::class);
 
     //CURRENT GAME DATA
     Route::get('duels/active', function (Request $request) {
