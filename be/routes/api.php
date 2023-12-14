@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Authorization\LoginController;
+use App\Http\Controllers\Api\DeckCard\Draw\DeckCardDrawController;
 use App\Http\Controllers\Api\User\Data\GetUserDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -74,9 +75,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     //CARDS
-    Route::post('cards', function (Request $request) {
-        return response()->json();
-    });
+    Route::post('cards', DeckCardDrawController::class);
 
     //USER DATA
     Route::get('user-data', GetUserDataController::class);
