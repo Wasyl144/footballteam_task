@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cards', function (Blueprint $table) {
+        Schema::create('levels', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->smallInteger('power');
-            $table->string('image')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
+            $table->smallInteger('level_number')->unique();
+            $table->smallInteger('points_from');
+            $table->smallInteger('points_to');
+            $table->smallInteger('max_cards');
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('levels');
     }
 };

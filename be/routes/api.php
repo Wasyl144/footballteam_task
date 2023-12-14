@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Authorization\LoginController;
+use App\Http\Controllers\Api\User\Data\GetUserDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,14 +79,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     //USER DATA
-    Route::get('user-data', function (Request $request) {
-        return [
-            'id' => 1,
-            'username' => 'Test User',
-            'level' => 1,
-            'level_points' => '40/100',
-            'cards' => config('game.cards'),
-            'new_card_allowed' => true,
-        ];
-    });
+    Route::get('user-data', GetUserDataController::class);
 });
