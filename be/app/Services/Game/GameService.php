@@ -136,7 +136,7 @@ class GameService implements GameServiceInterface
                     'player' => $player,
                     'points' => GetPlayerPointsInGame::execute($player->user, $game),
                 ];
-            })->sortBy('points');
+            })->sortBy('points', descending: true);
 
         $wonPlayer = $scores->shift();
 

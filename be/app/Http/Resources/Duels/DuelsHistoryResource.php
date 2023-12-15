@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Resources\Card;
+namespace App\Http\Resources\Duels;
 
-use App\Models\Card;
+use App\Dtos\Duels\DuelsHistoryDto;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property Card $resource
+ * @property DuelsHistoryDto $resource
  */
-class CardResource extends JsonResource
+class DuelsHistoryResource extends JsonResource
 {
     public static $wrap = null;
 
@@ -22,9 +22,9 @@ class CardResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'name' => $this->resource->name,
-            'image' => $this->resource->image,
-            'power' => $this->resource->power,
+            'player_name' => $this->resource->playerName,
+            'opponent_name' => $this->resource->opponentName,
+            'won' => $this->resource->won,
         ];
     }
 }
