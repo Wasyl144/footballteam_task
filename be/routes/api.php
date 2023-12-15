@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Authorization\LoginController;
 use App\Http\Controllers\Api\DeckCard\Draw\DeckCardDrawController;
+use App\Http\Controllers\Api\Game\ActualGameDataController;
 use App\Http\Controllers\Api\Game\StartGameController;
 use App\Http\Controllers\Api\User\Data\GetUserDataController;
 use Illuminate\Http\Request;
@@ -27,15 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('duels', StartGameController::class);
 
     //CURRENT GAME DATA
-    Route::get('duels/active', function (Request $request) {
-        return [
-            'round' => 4,
-            'your_points' => 260,
-            'opponent_points' => 100,
-            'status' => 'active',
-            'cards' => config('game.cards'),
-        ];
-    });
+    Route::get('duels/active', ActualGameDataController::class);
 
     //User has just selected a card
     Route::post('duels/action', function (Request $request) {

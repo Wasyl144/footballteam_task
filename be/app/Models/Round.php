@@ -11,7 +11,7 @@ class Round extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['game_id'];
+    protected $fillable = ['game_id', 'round_number'];
 
     public function game(): BelongsTo
     {
