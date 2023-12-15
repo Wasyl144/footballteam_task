@@ -2,7 +2,10 @@
 
 namespace App\Services\Game\Opponent;
 
+use App\Eloquent\Actions\Cards\GetAvailableCardsInGameByUser;
 use App\Models\Level;
+use App\Models\Move;
+use App\Models\Round;
 use App\Models\User;
 use App\Services\DeckCard\Draw\DeckCardDrawServiceInterface;
 
@@ -27,5 +30,19 @@ class GameOpponentService implements GameOpponentServiceInterface
         }
 
         return $opponent;
+    }
+
+    public function createMove(User $opponent, Round $round): void
+    {
+        $cards = GetAvailableCardsInGameByUser::execute($opponent, $round->game);
+        $cards->shuffle();
+        $card = $cards->first();
+
+        Move::create([
+            'player_id' => $opponent->player->id,
+            'round_id' => $round->id,
+            'deck_card_id' => $card->id,
+            'points' => $card->card->power,
+        ]);
     }
 }

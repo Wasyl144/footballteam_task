@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Player::class)->references('id')->on('players');
             $table->foreignIdFor(\App\Models\Game::class)->references('id')->on('games');
             $table->smallInteger('status')->index();
+            $table->smallInteger('points');
             $table->timestamps();
         });
     }
