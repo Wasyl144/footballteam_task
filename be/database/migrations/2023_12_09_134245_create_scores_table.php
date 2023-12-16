@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Player::class)->references('id')->on('players');
-            $table->foreignIdFor(\App\Models\Game::class)->references('id')->on('games');
+            $table->foreignIdFor(\App\Models\Player::class)->constrained();
+            $table->foreignIdFor(\App\Models\Game::class)->constrained();
             $table->smallInteger('status')->index();
+            $table->smallInteger('points');
             $table->timestamps();
         });
     }

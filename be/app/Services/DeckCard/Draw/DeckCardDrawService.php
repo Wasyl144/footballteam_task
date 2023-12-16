@@ -7,16 +7,14 @@ use App\Models\Card;
 use App\Models\DeckCard;
 use App\Models\Level;
 use App\Models\User;
-use App\Services\Draw\DrawServiceInterface;
 
 final class DeckCardDrawService implements DeckCardDrawServiceInterface
 {
-    public function __construct(
-        private readonly DrawServiceInterface $drawService
-    ) {
+    public function __construct()
+    {
     }
 
-    public function getDrawCard(int $userId): void
+    public function drawCards(int $userId, int $count = 1): void
     {
         $user = User::query()->with('player')->findOrFail($userId);
         $level = Level::query()->whereLevelNumber($user->player->level)->first();
@@ -25,13 +23,15 @@ final class DeckCardDrawService implements DeckCardDrawServiceInterface
             throw DrawException::userHaveTooMuchCards();
         }
 
-        $cards = Card::lazy()->pluck('id')->toArray();
-        $randomCard = $this->drawService->drawArrayOfNumbers($cards);
-        $card = Card::query()->find($randomCard);
+        $cards = Card::query()->inRandomOrder()->get()->shuffle();
 
-        $deckCard = DeckCard::create([
-            'deck_id' => $user->player->deck->id,
-            'card_id' => $card->id,
-        ]);
+        for ($i = 0; $i < $count; $i++) {
+            $card = $cards->random();
+
+            DeckCard::create([
+                'deck_id' => $user->player->deck->id,
+                'card_id' => $card->id,
+            ]);
+        }
     }
 }

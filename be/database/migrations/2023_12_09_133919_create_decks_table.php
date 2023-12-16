@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('decks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Player::class)->references('id')->on('players');
+            $table->foreignIdFor(Player::class)->constrained();
             $table->timestamps();
         });
     }

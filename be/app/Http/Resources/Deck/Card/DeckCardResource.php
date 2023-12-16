@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin DeckCard
+ * @property DeckCard $resource
  */
 class DeckCardResource extends JsonResource
 {
@@ -21,10 +21,10 @@ class DeckCardResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->card->name,
-            'image' => $this->card->image,
-            'power' => $this->card->power,
+            'id' => $this->resource->id,
+            'name' => $this->resource->card->name,
+            'image' => $this->resource->card->image,
+            'power' => $this->resource->card->power,
         ];
     }
 }

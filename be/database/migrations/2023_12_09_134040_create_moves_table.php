@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('moves', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Player::class)->references('id')->on('players');
-            $table->foreignIdFor(\App\Models\Round::class)->references('id')->on('rounds');
-            $table->foreignIdFor(\App\Models\DeckCard::class)->references('id')->on('deck_cards');
+            $table->foreignIdFor(\App\Models\Player::class)->constrained();
+            $table->foreignIdFor(\App\Models\Round::class)->constrained();
+            $table->foreignIdFor(\App\Models\DeckCard::class)->constrained();
             $table->smallInteger('points')->default(0);
             $table->timestamps();
         });
