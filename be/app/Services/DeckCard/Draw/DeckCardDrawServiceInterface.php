@@ -4,5 +4,5 @@ namespace App\Services\DeckCard\Draw;
 
 interface DeckCardDrawServiceInterface
 {
-    public function getDrawCard(int $userId): void;
+    public function drawCards(int $userId, int $count = 1): void;
 }

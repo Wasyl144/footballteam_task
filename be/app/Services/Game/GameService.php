@@ -11,15 +11,13 @@ use App\Eloquent\Actions\Game\GetLastGameByUser;
 use App\Eloquent\Actions\Game\Opponent\GetOpponentUserInGameWithoutExistsingUser;
 use App\Eloquent\Actions\Game\Points\GetPlayerPointsInGame;
 use App\Enums\Game\GameStatusEnum;
-use App\Enums\Score\ScoreStatusEnum;
 use App\Exceptions\Game\Card\CardException;
 use App\Exceptions\Game\GameException;
+use App\Jobs\FinishGameJob;
 use App\Models\DeckCard;
 use App\Models\Game;
 use App\Models\Move;
-use App\Models\Player;
 use App\Models\Round;
-use App\Models\Score;
 use App\Models\User;
 use App\Services\Game\Opponent\GameOpponentServiceInterface;
 use Carbon\Carbon;
@@ -35,6 +33,10 @@ class GameService implements GameServiceInterface
     public function createGame(int $userId): void
     {
         $user = User::query()->with('player')->find($userId);
+
+        if ($user->player->deck->deckCards->count() < 5) {
+            GameException::userDoesNotHaveEnoughCardsInDeck();
+        }
 
         if (GetActiveGameByUser::execute($user)) {
             return;
@@ -119,7 +121,7 @@ class GameService implements GameServiceInterface
 
     }
 
-    private function checkForWin(?Game $game): bool
+    private function checkForWin(Game $game): bool
     {
         if ($game->rounds->count() < $this->maxRounds) {
             return false;
@@ -129,35 +131,7 @@ class GameService implements GameServiceInterface
         $game->finished_at = Carbon::now();
         $game->save();
 
-        $scores = $game
-            ->players
-            ->map(function (Player $player) use ($game): array {
-                return [
-                    'player' => $player,
-                    'points' => GetPlayerPointsInGame::execute($player->user, $game),
-                ];
-            })->sortBy('points', descending: true);
-
-        $wonPlayer = $scores->shift();
-
-        Score::create([
-            'player_id' => $wonPlayer['player']->id,
-            'status' => ScoreStatusEnum::WON,
-            'game_id' => $game->id,
-            'points' => $wonPlayer['points'],
-        ]);
-
-        $wonPlayer['player']->points += 20;
-        $wonPlayer['player']->save();
-
-        $scores->map(function (array $score) use ($game): Score {
-            return Score::create([
-                'player_id' => $score['player']->id,
-                'status' => ScoreStatusEnum::DEFEAT,
-                'game_id' => $game->id,
-                'points' => $score['points'],
-            ]);
-        });
+        FinishGameJob::dispatch($game);
 
         return true;
     }

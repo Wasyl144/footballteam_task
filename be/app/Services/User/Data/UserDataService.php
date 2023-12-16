@@ -12,12 +12,13 @@ class UserDataService implements UserDataServiceInterface
     {
         $user = User::query()->with('player')->findOrFail($id);
         $level = Level::query()->whereLevelNumber($user->player->level)->first();
+        $nextLevel = Level::whereLevelNumber($level->level_number + 1)->first();
 
         return new UserDataDto(
             id: $user->id,
             name: $user->name,
             level: $user->player->level,
-            levelPoints: sprintf('%s/%s', $user->player->points, $level->points_to),
+            levelPoints: sprintf('%s/%s', $user->player->points, $nextLevel?->points_from ?: $level->points_to),
             cards: $user->player->deck->deckCards,
             isNewCardAllowed: $level->max_cards > $user->player->deck->getTotalCardsInDeck
         );

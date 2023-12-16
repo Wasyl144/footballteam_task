@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->references('id')->on('users');
+            $table->foreignIdFor(User::class)->constrained();
             $table->smallInteger('points')->default(0);
             $table->smallInteger('level')->default(1);
             $table->timestamps();

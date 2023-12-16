@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('rounds', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Game::class)->references('id')->on('games');
+            $table->foreignIdFor(\App\Models\Game::class)->constrained();
+            $table->smallInteger('round_number');
             $table->timestamps();
         });
     }

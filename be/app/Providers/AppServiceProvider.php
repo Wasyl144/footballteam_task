@@ -6,8 +6,6 @@ use App\Models\User;
 use App\Observers\UserObserver;
 use App\Services\DeckCard\Draw\DeckCardDrawService;
 use App\Services\DeckCard\Draw\DeckCardDrawServiceInterface;
-use App\Services\Draw\DrawService;
-use App\Services\Draw\DrawServiceInterface;
 use App\Services\Duels\DuelsService;
 use App\Services\Duels\DuelsServiceInterface;
 use App\Services\Game\GameService;
@@ -26,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(UserDataServiceInterface::class, UserDataService::class);
-        $this->app->bind(DrawServiceInterface::class, DrawService::class);
         $this->app->bind(DeckCardDrawServiceInterface::class, DeckCardDrawService::class);
         $this->app->bind(GameServiceInterface::class, GameService::class);
         $this->app->bind(GameOpponentServiceInterface::class, GameOpponentService::class);

@@ -16,7 +16,7 @@ class DeckCardDrawController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
-        $this->service->getDrawCard($request->user('sanctum')->id);
+        $this->service->drawCards($request->user('sanctum')->id);
 
         return response()->json();
     }

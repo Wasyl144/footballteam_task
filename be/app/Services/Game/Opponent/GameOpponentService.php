@@ -25,17 +25,14 @@ class GameOpponentService implements GameOpponentServiceInterface
         $opponent->player->points = random_int($level->points_from, $level->points_to);
         $opponent->player->save();
 
-        for ($i = 0; $i < $level->max_cards; $i++) {
-            $this->deckCardDrawService->getDrawCard($opponent->id);
-        }
+        $this->deckCardDrawService->drawCards($opponent->id, $level->max_cards);
 
         return $opponent;
     }
 
     public function createMove(User $opponent, Round $round): void
     {
-        $cards = GetAvailableCardsInGameByUser::execute($opponent, $round->game);
-        $cards->shuffle();
+        $cards = GetAvailableCardsInGameByUser::execute($opponent, $round->game)->shuffle();
         $card = $cards->first();
 
         Move::create([
