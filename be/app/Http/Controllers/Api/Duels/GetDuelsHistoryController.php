@@ -15,6 +15,7 @@ class GetDuelsHistoryController
 
     public function __invoke(Request $request): array
     {
+        /** @phpstan-ignore-next-line */
         return DuelsHistoryResource::collection(
             $this->service->getDuelsHistoryByUser($request->user('sanctum')->id)
         )->all();

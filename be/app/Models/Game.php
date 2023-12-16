@@ -10,6 +10,36 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * App\Models\Game
+ *
+ * @property int $id
+ * @property GameStatusEnum $status
+ * @property \Illuminate\Support\Carbon|null $valid_until
+ * @property \Illuminate\Support\Carbon|null $finished_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Player> $players
+ * @property-read int|null $players_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Round> $rounds
+ * @property-read int|null $rounds_count
+ *
+ * @method static Builder|Game active()
+ * @method static \Database\Factories\GameFactory factory($count = null, $state = [])
+ * @method static Builder|Game newModelQuery()
+ * @method static Builder|Game newQuery()
+ * @method static Builder|Game notFinished()
+ * @method static Builder|Game query()
+ * @method static Builder|Game valid()
+ * @method static Builder|Game whereCreatedAt($value)
+ * @method static Builder|Game whereFinishedAt($value)
+ * @method static Builder|Game whereId($value)
+ * @method static Builder|Game whereStatus($value)
+ * @method static Builder|Game whereUpdatedAt($value)
+ * @method static Builder|Game whereValidUntil($value)
+ *
+ * @mixin \Eloquent
+ */
 class Game extends Model
 {
     use HasFactory;

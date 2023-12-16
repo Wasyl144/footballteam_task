@@ -20,7 +20,7 @@ use App\Models\Move;
 use App\Models\Round;
 use App\Models\User;
 use App\Services\Game\Opponent\GameOpponentServiceInterface;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class GameService implements GameServiceInterface
 {
@@ -91,7 +91,7 @@ class GameService implements GameServiceInterface
             ->whereId($dto->deckCardId)
             ->whereDeckId($user->player->deck->id)
             ->get()
-            ->first();
+            ->first;
 
         if (! $card) {
             throw CardException::gameCardNotFound();
