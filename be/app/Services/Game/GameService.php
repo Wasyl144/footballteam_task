@@ -38,8 +38,8 @@ class GameService implements GameServiceInterface
             throw GameException::userDoesNotHaveEnoughCardsInDeck();
         }
 
-        if (GetActiveGameByUser::execute($user)) {
-            return null;
+        if ($game = GetActiveGameByUser::execute($user)) {
+            return $game;
         }
 
         $opponent = $this->gameOpponentService->prepareOpponent($user);

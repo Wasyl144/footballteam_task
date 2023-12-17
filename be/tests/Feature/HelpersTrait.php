@@ -55,7 +55,7 @@ trait HelpersTrait
         $this->prepareDeckCards($opponent);
 
         $game = Game::factory()->create([
-            'valid_until' => Carbon::now(),
+            'valid_until' => Carbon::now()->addMinutes(5),
             'finished_at' => Carbon::now()->addMinutes(),
             'status' => GameStatusEnum::FINISHED,
         ]);
@@ -134,7 +134,7 @@ trait HelpersTrait
         $this->prepareDeckCards($opponent);
 
         $game = Game::factory()->create([
-            'valid_until' => Carbon::now(),
+            'valid_until' => Carbon::now()->addMinutes(5),
             'finished_at' => null,
             'status' => GameStatusEnum::ACTIVE,
         ]);
