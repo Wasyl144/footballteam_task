@@ -49,7 +49,7 @@ trait HelpersTrait
         $this->seed(LevelSeeder::class);
     }
 
-    private function generateDummyGameFinishedUserAlwaysWins(User $user): Game
+    protected function generateDummyGameFinishedUserAlwaysWins(User $user): Game
     {
         $opponent = User::factory()->create();
         $this->prepareDeckCards($opponent);
@@ -123,6 +123,49 @@ trait HelpersTrait
                 'game_id' => $game->id,
                 'points' => $opponentPoints,
             ]);
+        }
+
+        return $game;
+    }
+
+    protected function generateDummyGameNotFinishedWithCountRounds(User $user, int $conut = 5): Game
+    {
+        $opponent = User::factory()->create();
+        $this->prepareDeckCards($opponent);
+
+        $game = Game::factory()->create([
+            'valid_until' => Carbon::now(),
+            'finished_at' => null,
+            'status' => GameStatusEnum::ACTIVE,
+        ]);
+
+        $game->addPlayer($user->player);
+        $game->addPlayer($opponent->player);
+
+        $game->save();
+
+        for ($i = 0; $i < $conut; $i++) {
+
+            /** @var Round $round */
+            $round = $game->rounds()->create([
+                'round_number' => $i + 1,
+            ]);
+
+            $cardFromUser = $user->player->deck->deckCards->random();
+            $cardFromOpponent = $opponent->player->deck->deckCards->random();
+
+            $round->moves()->create([
+                'player_id' => $opponent->player->id,
+                'deck_card_id' => $cardFromOpponent->id,
+                'points' => $cardFromOpponent->card->power,
+            ]);
+
+            $round->moves()->create([
+                'player_id' => $user->player->id,
+                'deck_card_id' => $cardFromUser->id,
+                'points' => $cardFromUser->card->power * 1000,
+            ]);
+
         }
 
         return $game;
