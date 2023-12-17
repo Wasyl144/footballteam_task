@@ -34,8 +34,8 @@ class GameService implements GameServiceInterface
     {
         $user = User::query()->with('player')->find($userId);
 
-        if ($user->player->deck->deckCards->count() < 5) {
-            GameException::userDoesNotHaveEnoughCardsInDeck();
+        if ($user->player->deck->deckCards->count() < $this->maxRounds) {
+            throw GameException::userDoesNotHaveEnoughCardsInDeck();
         }
 
         if (GetActiveGameByUser::execute($user)) {
@@ -84,6 +84,11 @@ class GameService implements GameServiceInterface
     {
         $user = User::query()->with('player')->find($userId);
         $game = GetActiveGameByUser::execute(user: $user);
+
+        if (! $game) {
+            throw GameException::gameNotFoundForUser();
+        }
+
         $opponent = GetOpponentUserInGameWithoutExistsingUser::execute(user: $user, game: $game);
 
         /** @var DeckCard|null $card */
@@ -91,7 +96,7 @@ class GameService implements GameServiceInterface
             ->whereId($dto->deckCardId)
             ->whereDeckId($user->player->deck->id)
             ->get()
-            ->first;
+            ->first();
 
         if (! $card) {
             throw CardException::gameCardNotFound();

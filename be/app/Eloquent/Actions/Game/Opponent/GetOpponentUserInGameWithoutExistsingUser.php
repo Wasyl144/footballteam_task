@@ -11,7 +11,7 @@ final class GetOpponentUserInGameWithoutExistsingUser
     public static function execute(User $user, Game $game): ?User
     {
         /** @var Player|null $model */
-        $model = $game->players()->whereNotIn('player_id', [$user->player->id])->get()->first;
+        $model = $game->players()->whereNotIn('player_id', [$user->player->id])->get()->first();
 
         return $model->user;
     }
