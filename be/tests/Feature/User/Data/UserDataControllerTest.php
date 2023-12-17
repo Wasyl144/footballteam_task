@@ -2,11 +2,8 @@
 
 namespace Tests\Feature\User\Data;
 
-use App\Models\DeckCard;
 use App\Models\Level;
 use App\Models\User;
-use Database\Seeders\CardSeeder;
-use Database\Seeders\LevelSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\HelpersTrait;
@@ -18,6 +15,7 @@ class UserDataControllerTest extends TestCase
     use RefreshDatabase;
 
     public string $endpoint = '/api/user-data';
+
     public string $url = 'http://localhost';
 
     protected function setUp(): void
@@ -48,7 +46,7 @@ class UserDataControllerTest extends TestCase
                 'level' => $user->player->level,
                 'level_points' => sprintf('%s/%s', $user->player->points, $nextLevel->points_from),
                 'cards' => [],
-                'new_card_allowed' => $level->max_cards > $user->player->deck->getTotalCardsInDeck
+                'new_card_allowed' => $level->max_cards > $user->player->deck->getTotalCardsInDeck,
             ])
             ->assertOk();
     }

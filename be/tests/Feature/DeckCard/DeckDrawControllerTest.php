@@ -4,8 +4,6 @@ namespace Tests\Feature\DeckCard;
 
 use App\Models\DeckCard;
 use App\Models\User;
-use Database\Seeders\CardSeeder;
-use Database\Seeders\LevelSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\HelpersTrait;
@@ -17,6 +15,7 @@ class DeckDrawControllerTest extends TestCase
     use RefreshDatabase;
 
     public string $endpoint = '/api/cards';
+
     public string $url = 'http://localhost';
 
     protected function setUp(): void

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Duels;
 
-use App\Models\Level;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
@@ -15,6 +14,7 @@ class DuelsHistoryControllerTest extends TestCase
     use RefreshDatabase;
 
     public string $endpoint = '/api/duels';
+
     public string $url = 'http://localhost';
 
     protected function setUp(): void
@@ -38,8 +38,8 @@ class DuelsHistoryControllerTest extends TestCase
                 'id',
                 'player_name',
                 'opponent_name',
-                'won'
-            ]
+                'won',
+            ],
         ])->assertOk();
     }
 }

@@ -2,12 +2,8 @@
 
 namespace Tests\Feature\Game;
 
-use App\Models\DeckCard;
 use App\Models\Game;
-use App\Models\Level;
 use App\Models\User;
-use Database\Seeders\CardSeeder;
-use Database\Seeders\LevelSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\HelpersTrait;
@@ -19,6 +15,7 @@ class ActualDataControllerTest extends TestCase
     use RefreshDatabase;
 
     public string $endpoint = '/api/duels/active';
+
     public string $url = 'http://localhost';
 
     protected function setUp(): void
@@ -66,14 +63,13 @@ class ActualDataControllerTest extends TestCase
             'opponent_points',
             'status',
             'cards' => [
-                '*' =>
-                    [
-                        'id',
-                        'name',
-                        'image',
-                        'power'
-                    ]
-            ]
+                '*' => [
+                    'id',
+                    'name',
+                    'image',
+                    'power',
+                ],
+            ],
         ]);
     }
 

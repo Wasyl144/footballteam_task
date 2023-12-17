@@ -25,7 +25,7 @@ trait HelpersTrait
 
     public function getUri(): string
     {
-        return $this->url . $this->endpoint;
+        return $this->url.$this->endpoint;
     }
 
     protected function prepareDeckCards(User $user, int $count = 5): void

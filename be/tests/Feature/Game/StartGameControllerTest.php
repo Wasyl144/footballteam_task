@@ -2,12 +2,8 @@
 
 namespace Tests\Feature\Game;
 
-use App\Models\DeckCard;
 use App\Models\Game;
-use App\Models\Level;
 use App\Models\User;
-use Database\Seeders\CardSeeder;
-use Database\Seeders\LevelSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\HelpersTrait;
@@ -19,6 +15,7 @@ class StartGameControllerTest extends TestCase
     use RefreshDatabase;
 
     public string $endpoint = '/api/duels';
+
     public string $url = 'http://localhost';
 
     protected function setUp(): void
