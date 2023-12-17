@@ -16,4 +16,8 @@ init:
 	docker compose exec -it backend php -r "file_exists('.env') || copy('.env.example', '.env');"
 	docker compose exec -it backend composer install
 	docker compose exec -it backend php artisan key:generate
-	docker compose exec -it backend php artisan migrate --seed
+	docker compose exec -it backend php artisan migrate:fresh --seed
+larastan:
+	docker compose exec -it backend vendor/bin/phpstan --memory-limit=1024M
+test:
+	docker compose exec -it backend php artisan test
