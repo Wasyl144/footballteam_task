@@ -33,11 +33,27 @@ MYSQL:
       MYSQL_DATABASE: card_game_recruitment
 ```
 
+## Useful commands
 
 ### Access to PHP Bash
 You can use a ```make be-bash``` command.
 To exit interactive mode you need to send keyboard sequence:
 <kbd>ctrl</kbd> + <kbd>p</kbd> and after <kbd>ctrl</kbd> + <kbd>q</kbd>. 
+
+### Run environment
+You can use a ```make up``` or ```make stop``` command to run or stop containers.
+
+### Laravel Pint
+Type a ```make pint``` to run Laravel Pint
+
+### Laravel IDE-HELPER
+Type a ```make ide-helper``` to run IDE-HELPER
+
+### Larastan
+Type a ```make larastan``` to run Larastan
+
+### PHPUnit
+Type a ```make test``` to run PHPUnit tests
 
 
 # What to improve, if I Will get more time
