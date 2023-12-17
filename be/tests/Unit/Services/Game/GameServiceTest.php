@@ -1,11 +1,14 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services\Game;
 
 use App\Dtos\Game\ActualInfo\ActualGameInfoDto;
 use App\Dtos\Game\Move\CardMoveRequestDto;
+use App\Eloquent\Actions\Cards\GetAvailableCardsInGameByUser;
+use App\Eloquent\Actions\Game\GetActiveGameByUser;
 use App\Exceptions\Game\Card\CardException;
 use App\Exceptions\Game\GameException;
+use App\Jobs\FinishGameJob;
 use App\Models\Card;
 use App\Models\DeckCard;
 use App\Models\Game;
@@ -16,6 +19,7 @@ use App\Services\Game\GameServiceInterface;
 use Database\Seeders\CardSeeder;
 use Database\Seeders\LevelSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class GameServiceTest extends TestCase
@@ -348,6 +352,32 @@ class GameServiceTest extends TestCase
             'deck_card_id' => $randomCard->id,
             'points' => $randomCard->card->power,
         ]);
+
+        $this->assertDatabaseCount(Round::class, 2);
+    }
+
+    public function test_should_finish_a_game_if_is_last_round(): void
+    {
+        \Queue::fake();
+
+        $user = User::factory()->create();
+        $this->prepareDeckCards(user: $user, count: self::MAX_ROUNDS);
+
+        $this->gameService->createGame($user->id);
+        $game = GetActiveGameByUser::execute($user);
+
+        for ($i = 0; $i < self::MAX_ROUNDS; $i++) {
+            $cards = GetAvailableCardsInGameByUser::execute($user, $game);
+            $dto = new CardMoveRequestDto(
+                deckCardId: $cards->random()->id
+            );
+            $this->gameService->createMove($user->id, $dto);
+        }
+
+        \Queue::assertPushed(FinishGameJob::class);
+        $game->refresh();
+
+        $this->assertTrue($game->finished_at instanceof Carbon);
     }
 
     private function prepareDeckCards(User $user, int $count = 5): void

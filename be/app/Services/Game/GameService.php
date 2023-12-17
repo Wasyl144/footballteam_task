@@ -30,7 +30,7 @@ class GameService implements GameServiceInterface
     ) {
     }
 
-    public function createGame(int $userId): void
+    public function createGame(int $userId): ?Game
     {
         $user = User::query()->with('player')->find($userId);
 
@@ -39,7 +39,7 @@ class GameService implements GameServiceInterface
         }
 
         if (GetActiveGameByUser::execute($user)) {
-            return;
+            return null;
         }
 
         $opponent = $this->gameOpponentService->prepareOpponent($user);
@@ -56,6 +56,8 @@ class GameService implements GameServiceInterface
         $game->rounds()->create([
             'round_number' => 1,
         ]);
+
+        return $game;
     }
 
     public function actualGameInfo(int $userId): ActualGameInfoDto
@@ -80,7 +82,7 @@ class GameService implements GameServiceInterface
         );
     }
 
-    public function createMove(int $userId, CardMoveRequestDto $dto): void
+    public function createMove(int $userId, CardMoveRequestDto $dto): ?Move
     {
         $user = User::query()->with('player')->find($userId);
         $game = GetActiveGameByUser::execute(user: $user);
@@ -109,7 +111,7 @@ class GameService implements GameServiceInterface
         /** @var Round|null $actualRound */
         $actualRound = $game->rounds()->orderBy('round_number', 'desc')->first();
 
-        Move::create([
+        $move = Move::create([
             'player_id' => $user->player->id,
             'round_id' => $actualRound->id,
             'deck_card_id' => $card->id,
@@ -122,11 +124,14 @@ class GameService implements GameServiceInterface
             $game->rounds()->create([
                 'round_number' => $actualRound->round_number + 1,
             ]);
+
+            return $move;
         }
 
+        return null;
     }
 
-    private function checkForWin(Game $game): bool
+    public function checkForWin(Game $game): bool
     {
         if ($game->rounds->count() < $this->maxRounds) {
             return false;
