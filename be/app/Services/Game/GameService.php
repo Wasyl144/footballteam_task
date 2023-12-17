@@ -30,16 +30,16 @@ class GameService implements GameServiceInterface
     ) {
     }
 
-    public function createGame(int $userId): void
+    public function createGame(int $userId): ?Game
     {
         $user = User::query()->with('player')->find($userId);
 
-        if ($user->player->deck->deckCards->count() < 5) {
-            GameException::userDoesNotHaveEnoughCardsInDeck();
+        if ($user->player->deck->deckCards->count() < $this->maxRounds) {
+            throw GameException::userDoesNotHaveEnoughCardsInDeck();
         }
 
-        if (GetActiveGameByUser::execute($user)) {
-            return;
+        if ($game = GetActiveGameByUser::execute($user)) {
+            return $game;
         }
 
         $opponent = $this->gameOpponentService->prepareOpponent($user);
@@ -56,6 +56,8 @@ class GameService implements GameServiceInterface
         $game->rounds()->create([
             'round_number' => 1,
         ]);
+
+        return $game;
     }
 
     public function actualGameInfo(int $userId): ActualGameInfoDto
@@ -80,10 +82,15 @@ class GameService implements GameServiceInterface
         );
     }
 
-    public function createMove(int $userId, CardMoveRequestDto $dto): void
+    public function createMove(int $userId, CardMoveRequestDto $dto): ?Move
     {
         $user = User::query()->with('player')->find($userId);
         $game = GetActiveGameByUser::execute(user: $user);
+
+        if (! $game) {
+            throw GameException::gameNotFoundForUser();
+        }
+
         $opponent = GetOpponentUserInGameWithoutExistsingUser::execute(user: $user, game: $game);
 
         /** @var DeckCard|null $card */
@@ -91,7 +98,7 @@ class GameService implements GameServiceInterface
             ->whereId($dto->deckCardId)
             ->whereDeckId($user->player->deck->id)
             ->get()
-            ->first;
+            ->first();
 
         if (! $card) {
             throw CardException::gameCardNotFound();
@@ -104,7 +111,7 @@ class GameService implements GameServiceInterface
         /** @var Round|null $actualRound */
         $actualRound = $game->rounds()->orderBy('round_number', 'desc')->first();
 
-        Move::create([
+        $move = Move::create([
             'player_id' => $user->player->id,
             'round_id' => $actualRound->id,
             'deck_card_id' => $card->id,
@@ -117,11 +124,14 @@ class GameService implements GameServiceInterface
             $game->rounds()->create([
                 'round_number' => $actualRound->round_number + 1,
             ]);
+
+            return $move;
         }
 
+        return null;
     }
 
-    private function checkForWin(Game $game): bool
+    public function checkForWin(Game $game): bool
     {
         if ($game->rounds->count() < $this->maxRounds) {
             return false;

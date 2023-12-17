@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Game>
@@ -17,7 +18,7 @@ class GameFactory extends Factory
     public function definition(): array
     {
         return [
-            'valid_until' => null,
+            'valid_until' => Carbon::now()->addMinutes(5),
             'finished_at' => null,
             'status' => fake()->randomDigit(),
         ];

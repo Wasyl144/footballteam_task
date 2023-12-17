@@ -19,8 +19,8 @@ final class DeckCardDrawService implements DeckCardDrawServiceInterface
         $user = User::query()->with('player')->findOrFail($userId);
         $level = Level::query()->whereLevelNumber($user->player->level)->first();
 
-        if ($level->max_cards <= $user->player->deck->getTotalCardsInDeck) {
-            throw DrawException::userHaveTooMuchCards();
+        if ($count > $level->max_cards || $count + $user->player->deck->getTotalCardsInDeck > $level->max_cards) {
+            throw DrawException::cannotPassMoreCardsThenExpectedByLevel();
         }
 
         $cards = Card::query()->inRandomOrder()->get()->shuffle();

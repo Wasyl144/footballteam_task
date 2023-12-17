@@ -38,18 +38,30 @@ class FinishGameJob implements ShouldQueue
                     'player' => $player,
                     'points' => GetPlayerPointsInGame::execute($player->user, $this->game),
                 ];
-            })->sortBy('points', descending: true);
+            })
+            ->sortBy('points', descending: true);
 
-        $wonPlayer = $scores->shift();
+        $maxPoints = $scores->max('points');
+        $maxCount = 0;
 
-        Score::create([
-            'player_id' => $wonPlayer['player']->id,
-            'status' => ScoreStatusEnum::WON,
-            'game_id' => $this->game->id,
-            'points' => $wonPlayer['points'],
-        ]);
+        $scores->each(function (array $arr) use ($maxPoints, &$maxCount) {
+            if ($arr['points'] === $maxPoints) {
+                $maxCount++;
+            }
+        });
 
-        event(new PlayerWonGameEvent($wonPlayer['player']));
+        if ($maxCount === 1) {
+            $wonPlayer = $scores->shift();
+
+            Score::create([
+                'player_id' => $wonPlayer['player']->id,
+                'status' => ScoreStatusEnum::WON,
+                'game_id' => $this->game->id,
+                'points' => $wonPlayer['points'],
+            ]);
+
+            event(new PlayerWonGameEvent($wonPlayer['player']));
+        }
 
         $scores->map(function (array $score): Score {
             return Score::create([

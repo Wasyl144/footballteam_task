@@ -98,4 +98,9 @@ class Game extends Model
     {
         $query->where('finished_at', '=', null);
     }
+
+    public function getActualRound(): ?Round
+    {
+        return $this->rounds()->latest()->first();
+    }
 }

@@ -30,12 +30,12 @@ class GameOpponentService implements GameOpponentServiceInterface
         return $opponent;
     }
 
-    public function createMove(User $opponent, Round $round): void
+    public function createMove(User $opponent, Round $round): ?Move
     {
         $cards = GetAvailableCardsInGameByUser::execute($opponent, $round->game)->shuffle();
         $card = $cards->first();
 
-        Move::create([
+        return Move::create([
             'player_id' => $opponent->player->id,
             'round_id' => $round->id,
             'deck_card_id' => $card->id,

@@ -18,6 +18,7 @@ Everything will be done automatically.
 ```
 api.localhost/api - basic endpoint
 app.localhost/ - frontend
+localhost:8080 - phpmyadmin
 ```
 
 ### DB Connection
@@ -37,3 +38,11 @@ MYSQL:
 You can use a ```make be-bash``` command.
 To exit interactive mode you need to send keyboard sequence:
 <kbd>ctrl</kbd> + <kbd>p</kbd> and after <kbd>ctrl</kbd> + <kbd>q</kbd>. 
+
+
+# What to improve, if I Will get more time
+
+- Add OpenAPI Docs,
+- Add logs for all actions,
+- Maybe refactor to use a Repository Pattern
+- Handle draw - now if round has tie all player losing game

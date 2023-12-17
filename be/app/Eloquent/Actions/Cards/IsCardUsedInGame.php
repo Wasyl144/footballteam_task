@@ -17,7 +17,7 @@ final class IsCardUsedInGame
                 $builder->where('deck_cards.id', $deckCard->id);
             })
             ->get()
-            ->first;
+            ->first();
 
         return $model != false;
     }
