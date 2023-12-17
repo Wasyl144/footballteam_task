@@ -3,17 +3,14 @@
 namespace Tests\Unit\Services\Duels;
 
 use App\Dtos\Duels\DuelsHistoryDto;
-use App\Dtos\User\Data\UserDataDto;
 use App\Enums\Game\GameStatusEnum;
 use App\Enums\Score\ScoreStatusEnum;
 use App\Models\Card;
 use App\Models\Game;
-use App\Models\Level;
 use App\Models\Round;
 use App\Models\Score;
 use App\Models\User;
 use App\Services\Duels\DuelsServiceInterface;
-use App\Services\User\Data\UserDataServiceInterface;
 use Carbon\Carbon;
 use Database\Seeders\CardSeeder;
 use Database\Seeders\LevelSeeder;
@@ -53,7 +50,7 @@ class DuelsServiceTest extends TestCase
 
         $this->assertDatabaseHas(Score::class, [
             'player_id' => $user->player->id,
-            'game_id' => $game->id
+            'game_id' => $game->id,
         ]);
 
         $result = $this->duelsService->getDuelsHistoryByUser($user->id);
@@ -63,7 +60,6 @@ class DuelsServiceTest extends TestCase
         $dto = $result[0];
 
         $score = $user->player->scores->first();
-
 
         $testDto = new DuelsHistoryDto(
             id: $score->id,
@@ -98,7 +94,7 @@ class DuelsServiceTest extends TestCase
 
             /** @var Round $round */
             $round = $game->rounds()->create([
-                'round_number' => $i + 1
+                'round_number' => $i + 1,
             ]);
 
             $cardFromUser = $user->player->deck->deckCards->random();
@@ -126,28 +122,28 @@ class DuelsServiceTest extends TestCase
                 'player_id' => $user->player->id,
                 'status' => ScoreStatusEnum::WON,
                 'game_id' => $game->id,
-                'points' => $userPoints
+                'points' => $userPoints,
             ]);
 
             Score::create([
                 'player_id' => $opponent->player->id,
                 'status' => ScoreStatusEnum::DEFEAT,
                 'game_id' => $game->id,
-                'points' => $opponentPoints
+                'points' => $opponentPoints,
             ]);
         } else {
             Score::create([
                 'player_id' => $user->player->id,
                 'status' => ScoreStatusEnum::DEFEAT,
                 'game_id' => $game->id,
-                'points' => $userPoints
+                'points' => $userPoints,
             ]);
 
             Score::create([
                 'player_id' => $opponent->player->id,
                 'status' => ScoreStatusEnum::WON,
                 'game_id' => $game->id,
-                'points' => $opponentPoints
+                'points' => $opponentPoints,
             ]);
         }
 

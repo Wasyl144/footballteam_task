@@ -2,8 +2,6 @@
 
 namespace Tests\Unit\Jobs;
 
-use App\Dtos\Duels\DuelsHistoryDto;
-use App\Dtos\User\Data\UserDataDto;
 use App\Eloquent\Actions\Game\Opponent\GetOpponentUserInGameWithoutExistsingUser;
 use App\Eloquent\Actions\Game\Points\GetPlayerPointsInGame;
 use App\Enums\Game\GameStatusEnum;
@@ -12,12 +10,9 @@ use App\Events\PlayerWonGameEvent;
 use App\Jobs\FinishGameJob;
 use App\Models\Card;
 use App\Models\Game;
-use App\Models\Level;
 use App\Models\Round;
 use App\Models\Score;
 use App\Models\User;
-use App\Services\Duels\DuelsServiceInterface;
-use App\Services\User\Data\UserDataServiceInterface;
 use Carbon\Carbon;
 use Database\Seeders\CardSeeder;
 use Database\Seeders\LevelSeeder;
@@ -68,14 +63,14 @@ class FinishGameJobTest extends TestCase
             'player_id' => $user->player->id,
             'points' => $userPoints,
             'status' => $userPoints > $opponentPoints ? ScoreStatusEnum::WON->value : ScoreStatusEnum::DEFEAT->value,
-            'game_id' => $game->id
+            'game_id' => $game->id,
         ]);
 
         $this->assertDatabaseHas(Score::class, [
             'player_id' => $opponent->player->id,
             'points' => $opponentPoints,
             'status' => $opponentPoints > $userPoints ? ScoreStatusEnum::WON->value : ScoreStatusEnum::DEFEAT->value,
-            'game_id' => $game->id
+            'game_id' => $game->id,
         ]);
     }
 
@@ -102,14 +97,14 @@ class FinishGameJobTest extends TestCase
             'player_id' => $user->player->id,
             'points' => $userPoints,
             'status' => $userPoints > $opponentPoints ? ScoreStatusEnum::WON->value : ScoreStatusEnum::DEFEAT->value,
-            'game_id' => $game->id
+            'game_id' => $game->id,
         ]);
 
         $this->assertDatabaseHas(Score::class, [
             'player_id' => $opponent->player->id,
             'points' => $opponentPoints,
             'status' => $opponentPoints > $userPoints ? ScoreStatusEnum::WON->value : ScoreStatusEnum::DEFEAT->value,
-            'game_id' => $game->id
+            'game_id' => $game->id,
         ]);
     }
 
@@ -133,7 +128,7 @@ class FinishGameJobTest extends TestCase
 
             /** @var Round $round */
             $round = $game->rounds()->create([
-                'round_number' => $i + 1
+                'round_number' => $i + 1,
             ]);
 
             $cardFromUser = $user->player->deck->deckCards->random();
@@ -175,7 +170,7 @@ class FinishGameJobTest extends TestCase
 
             /** @var Round $round */
             $round = $game->rounds()->create([
-                'round_number' => $i + 1
+                'round_number' => $i + 1,
             ]);
 
             $cardFromUser = $user->player->deck->deckCards->random();

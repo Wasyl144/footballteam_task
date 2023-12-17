@@ -13,7 +13,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Collection;
 
 class FinishGameJob implements ShouldQueue
 {
@@ -24,8 +23,7 @@ class FinishGameJob implements ShouldQueue
      */
     public function __construct(
         private readonly Game $game
-    )
-    {
+    ) {
     }
 
     /**

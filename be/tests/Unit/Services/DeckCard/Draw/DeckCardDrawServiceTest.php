@@ -2,13 +2,11 @@
 
 namespace Tests\Unit\Services\DeckCard\Draw;
 
-use App\Dtos\User\Data\UserDataDto;
 use App\Exceptions\DeckCard\Draw\DrawException;
 use App\Models\DeckCard;
 use App\Models\Level;
 use App\Models\User;
 use App\Services\DeckCard\Draw\DeckCardDrawServiceInterface;
-use App\Services\User\Data\UserDataServiceInterface;
 use Database\Seeders\CardSeeder;
 use Database\Seeders\LevelSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
