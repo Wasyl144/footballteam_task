@@ -97,7 +97,6 @@ class GameService implements GameServiceInterface
         $card = DeckCard::query()
             ->whereId($dto->deckCardId)
             ->whereDeckId($user->player->deck->id)
-            ->get()
             ->first();
 
         if (! $card) {

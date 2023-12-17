@@ -16,7 +16,6 @@ final class IsCardUsedInGame
                 $builder->join('deck_cards', 'moves.deck_card_id', '=', 'deck_cards.id');
                 $builder->where('deck_cards.id', $deckCard->id);
             })
-            ->get()
             ->first();
 
         return $model != false;
