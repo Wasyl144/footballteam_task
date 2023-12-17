@@ -25,6 +25,7 @@ class GameOpponentServiceTest extends TestCase
     const MAX_PLAYERS = 2;
 
     private readonly GameServiceInterface $gameService;
+
     private readonly GameOpponentServiceInterface $gameOpponentService;
 
     protected function setUp(): void
