@@ -18,7 +18,7 @@ class DuelsService implements DuelsServiceInterface
 
         return $user->player->scores->map(function (Score $score) use ($user) {
             /** @var Player $opponent */
-            $opponent = $score->game->players()->whereNotIn('id', [$user->player->id])->get()->first;
+            $opponent = $score->game->players()->whereNotIn('id', [$user->player->id])->get()->first();
 
             return new DuelsHistoryDto(
                 id: $score->id,

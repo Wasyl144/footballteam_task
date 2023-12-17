@@ -23,10 +23,6 @@ final class DeckCardDrawService implements DeckCardDrawServiceInterface
             throw DrawException::cannotPassMoreCardsThenExpectedByLevel();
         }
 
-        if ($level->max_cards <= $user->player->deck->getTotalCardsInDeck) {
-            throw DrawException::userHaveTooMuchCards();
-        }
-
         $cards = Card::query()->inRandomOrder()->get()->shuffle();
 
         for ($i = 0; $i < $count; $i++) {
